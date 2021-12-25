@@ -9,6 +9,8 @@ export const LOGIN_FAIL = "auth-login-fail"
 export const REGISTER_START = "auth-register-start";
 export const REGISTER_SUCCESS = "auth-register-success";
 
+export const AUTO_LOGIN = "auth-auto-login";
+
 export const loginStartAction = createAction(
   LOGIN_START,
   props<{ username: string, password: string }>()
@@ -27,6 +29,10 @@ export const registerStartAction = createAction(
 export const registerSuccessAction = createAction(
   REGISTER_SUCCESS,
   props<{ redirect: true }>()
+);
+
+export const autoLogin = createAction(
+  AUTO_LOGIN
 );
 
 

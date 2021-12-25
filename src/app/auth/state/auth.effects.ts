@@ -1,10 +1,22 @@
 import {Injectable} from "@angular/core";
 import {AuthService} from "../../services/auth.service";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
-import {loginStartAction, loginSuccessAction, registerStartAction, registerSuccessAction} from "./auth.actions";
-import {exhaustMap, map, tap} from "rxjs/operators";
-import {formatUser, storeLoginDataInLocalStorage} from "../../common/common.utils";
+import {
+  autoLogin,
+  loginStartAction,
+  loginSuccessAction,
+  registerStartAction,
+  registerSuccessAction
+} from "./auth.actions";
+import {exhaustMap, map, mergeMap, tap} from "rxjs/operators";
+import {
+  formatUser,
+  getJwtToken,
+  getUserFromLocalStorage,
+  storeLoginDataInLocalStorage
+} from "../../common/common.utils";
 import {Router} from "@angular/router";
+import {of} from "rxjs";
 
 @Injectable()
 export class AuthEffects {
@@ -49,7 +61,20 @@ export class AuthEffects {
       )
     },
     {dispatch: false}
-  )
+  );
+
+  autoLogin$ = createEffect(() => {
+      return this.actions$.pipe(
+        ofType(autoLogin),
+        mergeMap((action) => {
+            const jwtToken = getJwtToken();
+            const savedUser = getUserFromLocalStorage();
+            return of(loginSuccessAction({token: jwtToken, user: savedUser, redirect: true}))
+          }
+        )
+      )
+    }
+  );
 
   constructor(private authService: AuthService,
               private actions$: Actions,

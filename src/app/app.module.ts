@@ -5,23 +5,24 @@ import {environment} from 'src/environments/environment';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {MenuModule} from './menu/menu.module';
 import {StoreModule} from "@ngrx/store";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {appReducer} from "./state/app.state";
 import {JwtHttpInterceptor} from "./common/interceptors/jwt.http.interceptor";
+import {HeaderComponent} from "./common/components/header/header.component";
+import {AuthEffects} from "./auth/state/auth.effects";
 
 @NgModule({
   declarations: [
+    HeaderComponent,
     AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MenuModule,
     HttpClientModule,
-    EffectsModule.forRoot([]),
+    EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({
       logOnly: environment.production,
