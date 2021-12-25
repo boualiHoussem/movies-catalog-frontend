@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6 mx-5 mt-5">
+      <h3>Login</h3>
+      <hr/>
+      <form [formGroup]="loginFormGroup" (ngSubmit)="onLoginSubmit()">
+        <div class="form-group mb-3">
+          <label for="username">Username</label>
+          <input id="username" type="text" class="form-control" formControlName="username"/>
+          <div *ngIf="username.touched && !username.valid">
+            <p class="invalid-input" *ngIf="username.errors.required">
+              Username is required
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="password">Password</label>
+          <input id="password" type="password" class="form-control" formControlName="password"/>
+          <div *ngIf="password.touched && !password.valid">
+            <p class="invalid-input" *ngIf="password.errors.required">
+              Password is required
+            </p>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!loginFormGroup.valid"
+          >Login
+          </button>
+        </div>
+      </form>
+    </div>
+    <img class="col-4 mx-3" src="./../../../assets/img/camera.jpg" alt="none"/>
+  </div>
+</div>

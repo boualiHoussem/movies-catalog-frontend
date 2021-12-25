@@ -1,0 +1,80 @@
+<div class="container">
+  <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+    <div class="row mx-5 mt-5">
+      <h3>Register for free</h3>
+      <hr/>
+      <div class="col">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input id="firstName"
+                 class="form-control"
+                 type="text"
+                 formControlName="firstName"/>
+          <div *ngIf="firstName.touched && firstName.invalid">
+            <p class="invalid-input">
+              First name is required
+            </p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input id="lastName"
+                 class="form-control"
+                 type="text"
+                 formControlName="lastName"/>
+          <div *ngIf="lastName.touched && lastName.invalid">
+            <p class="invalid-input">Last name is required</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="birthday">Birthday</label>
+          <input id="birthday"
+                 type="date"
+                 class="form-control"
+                 formControlName="birthday"/>
+          <div *ngIf="birthday.touched && birthday.invalid">
+            <p class="invalid-input">Birthday is required</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input id="username"
+                 class="form-control"
+                 type="text"
+                 formControlName="username"/>
+          <div *ngIf="username.touched && username.invalid">
+            <p class="invalid-input">Username is required</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password"
+                 class="form-control"
+                 type="password"
+                 formControlName="password"/>
+          <div *ngIf="password.touched && password.invalid">
+            <p class="invalid-input">Password is required</p>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password-confirm">Confirm Password</label>
+          <input id="password-confirm"
+                 class="form-control"
+                 type="password"
+                 formControlName="confirm"/>
+          <div *ngIf="password.valid && confirm.touched && confirm.invalid">
+            <p class="invalid-input">Please confirm your password</p>
+          </div>
+          <div *ngIf="password.valid && confirm.valid && registerForm.errors?.matching">
+            <p class="invalid-input">Your passwords should match</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mx-5 my-5 justify-content-md-center">
+      <button type="submit" class="col col-sm-3 btn btn-success" [disabled]="!registerForm.valid">Sign Up</button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <ng-container *ngFor="let movie of (movies$ | async)">
+      <div class="card mb-3 ms-3" style="width: 18rem;">
+        <img src="{{movie.posterUrl}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{movie.title}}</h5>
+          <p class="card-text">{{movie.description}}</p>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Directed by {{movie.director}}</li>
+            <li class="list-group-item">Release date: {{movie.releaseDate}}</li>
+          </ul>
+          <a href="#"
+             class="btn btn-danger"
+             data-bs-toggle="tooltip" data-bs-placement="top"
+             title="Add to favourites"><i class="fas fa-heart"></i></a> &nbsp;
+          <a href="#" class="btn btn-primary" title="Add to wishlist"><i class="fas fa-star"></i> </a>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
