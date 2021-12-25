@@ -1,14 +1,19 @@
 <div class="container">
   <div class="row">
-    <ng-container *ngFor="let movie of (movies$ | async)">
+    <ng-container *ngFor="let holder of moviesHolders">
       <div class="card mb-3 ms-3" style="width: 18rem;">
-        <img src="{{movie.posterUrl}}" class="card-img-top" alt="...">
+        <img src="{{holder.value.posterUrl}}" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title">{{movie.title}}</h5>
-          <p class="card-text">{{movie.description}}</p>
+          <h5 class="card-title">{{holder.value.title}}</h5>
+          <p class="card-text" [ngClass]="{'limitTextHeight': holder.show}">
+            {{holder.value.description}}
+          </p>
+          <a type="button" class="link-primary" (click)="onReadMore(holder)">
+            {{ holder.show ? 'Show more' : 'Show Less' }}
+          </a>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Directed by {{movie.director}}</li>
-            <li class="list-group-item">Release date: {{movie.releaseDate}}</li>
+            <li class="list-group-item">Directed by {{holder.value.director}}</li>
+            <li class="list-group-item">Release date: {{holder.value.releaseDate}}</li>
           </ul>
           <a href="#"
              class="btn btn-danger"

@@ -3,6 +3,7 @@ import {AuthService} from "../../services/auth.service";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {
   autoLogin,
+  LOGIN_SUCCESS,
   loginStartAction,
   loginSuccessAction,
   LOGOUT_SUCCESS,
@@ -76,6 +77,8 @@ export class AuthEffects {
           if (action.redirect) {
             if (action.type === LOGOUT_SUCCESS) {
               this.router.navigate(['/auth/login']);
+            } else if (action.type === LOGIN_SUCCESS && !getUserFromLocalStorage()) {
+              this.router.navigate(['/'])
             } else {
               this.router.navigate(['/movies/list']);
             }

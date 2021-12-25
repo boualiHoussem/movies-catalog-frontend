@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Movie } from 'src/app/models/movie.model';
-import { loadMovies } from '../state/movies.actions';
-import { MoviesState } from '../state/movies.state';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {Movie} from 'src/app/models/movie.model';
+import {loadMovies} from '../state/movies.actions';
+import {MoviesState} from '../state/movies.state';
+import {MovieHolder} from "../../models/movie.holder";
 import {getMovies} from "../state/movies.selectors";
 
 @Component({
@@ -14,12 +15,26 @@ import {getMovies} from "../state/movies.selectors";
 export class MoviesListComponent implements OnInit {
 
 
- movies$: Observable<Array<Movie>>;
-  constructor(private store: Store<MoviesState>) { }
+  isReadMore = true
+  movies$: Observable<Array<Movie>>;
+  moviesHolders: Array<MovieHolder>;
+
+  constructor(private store: Store<MoviesState>) {
+  }
 
   ngOnInit() {
-    this.movies$ = this.store.select(getMovies);
+    this.loadMovies();
     this.store.dispatch(loadMovies());
   }
 
+  loadMovies() {
+    this.store.select(getMovies).subscribe(movies => {
+        this.moviesHolders = movies.map(movie => new MovieHolder(movie, true));
+      }
+    )
+  }
+
+  onReadMore(holder: MovieHolder) {
+    holder.show = !holder.show;
+  }
 }
