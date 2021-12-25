@@ -25,4 +25,7 @@ export class AuthService {
     return this.http.post(`${ACCESS_API}/register`, user);
   }
 
+  logout(): Observable<any> {
+    return this.http.post(`${ACCESS_API}/logout`, null);
+  }
 }

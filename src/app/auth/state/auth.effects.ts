@@ -5,11 +5,15 @@ import {
   autoLogin,
   loginStartAction,
   loginSuccessAction,
+  LOGOUT_SUCCESS,
+  logoutStartAction,
+  logoutSuccessAction,
   registerStartAction,
   registerSuccessAction
 } from "./auth.actions";
 import {exhaustMap, map, mergeMap, tap} from "rxjs/operators";
 import {
+  clearLocalStorage,
   formatUser,
   getJwtToken,
   getUserFromLocalStorage,
@@ -48,14 +52,33 @@ export class AuthEffects {
         )
       })
     )
-  })
+  });
+
+  logoutEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logoutStartAction),
+      mergeMap((action) => {
+        console.log('Here')
+        return this.authService.logout().pipe(
+          map(() => {
+            clearLocalStorage();
+            return logoutSuccessAction({redirect: true});
+          })
+        )
+      })
+    )
+  });
 
   redirectEffect$ = createEffect(() => {
       return this.actions$.pipe(
-        ofType(...[loginSuccessAction, registerSuccessAction]),
+        ofType(...[loginSuccessAction, registerSuccessAction, logoutSuccessAction]),
         tap((action) => {
           if (action.redirect) {
-            this.router.navigate(['/movies/list']);
+            if (action.type === LOGOUT_SUCCESS) {
+              this.router.navigate(['/auth/login']);
+            } else {
+              this.router.navigate(['/movies/list']);
+            }
           }
         })
       )

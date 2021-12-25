@@ -17,14 +17,21 @@ export function storeLoginDataInLocalStorage(token: string, user: User) {
 export function getUserFromLocalStorage(): User {
   const userAsString = localStorage.getItem("user");
   let user = JSON.parse(userAsString);
-  return new User(
-    user.id,
-    user.firstName,
-    user.lastName,
-    user.username
-  )
+  if (user) {
+    return new User(
+      user.id,
+      user.firstName,
+      user.lastName,
+      user.username
+    )
+  }
+  return null;
 }
 
 export function getJwtToken(): string {
   return localStorage.getItem("token");
+}
+
+export function clearLocalStorage() {
+  localStorage.clear();
 }

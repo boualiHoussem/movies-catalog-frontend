@@ -1,6 +1,7 @@
 import {createReducer, on} from "@ngrx/store";
 import {loadMoviesSuccess} from "./movies.actions";
 import {initialState} from "./movies.state";
+import {logoutSuccessAction} from "../../auth/state/auth.actions";
 
 const _moviesReducer = createReducer(
   initialState,
@@ -9,8 +10,14 @@ const _moviesReducer = createReducer(
       ...state,
       movies: action.movies
     }
+  }),
+  on(logoutSuccessAction, (state, action) => {
+    return {
+      ...state,
+      movies: null
+    }
   })
-)
+);
 
 
 export function moviesReducer(state: any, action: any) {
