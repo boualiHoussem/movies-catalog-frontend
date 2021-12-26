@@ -1,0 +1,25 @@
+<div class="card mb-3 ms-3" style="width: 18rem;">
+  <img src="{{holder.value.posterUrl}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{holder.value.title}}</h5>
+    <p class="card-text" [ngClass]="{'limitTextHeight': holder.show}">
+      {{holder.value.description}}
+    </p>
+    <a type="button" class="link-primary" (click)="onReadMore(holder)">
+      {{ holder.show ? 'Show more' : 'Show Less' }}
+    </a>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">Directed by {{holder.value.director}}</li>
+      <li class="list-group-item">Release date: {{holder.value.releaseDate}}</li>
+    </ul>
+    <ng-container *ngIf="showActionButtons">
+      <a href="javascript:void(0)"
+         (click)="emitMovie(holder.value.id)"
+         class="btn btn-danger"
+         title="Add to favourites"><i class="fas fa-heart"></i></a> &nbsp;
+      <a href="#"
+         class="btn btn-primary"
+         title="Add to wishlist"><i class="fas fa-star"></i> </a>
+    </ng-container>
+  </div>
+</div>

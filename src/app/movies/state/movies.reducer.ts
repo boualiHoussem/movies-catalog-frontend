@@ -1,5 +1,5 @@
 import {createReducer, on} from "@ngrx/store";
-import {loadMoviesSuccess} from "./movies.actions";
+import {addToFavouritesSuccessAction, loadFavouritesSuccessAction, loadMoviesSuccess} from "./movies.actions";
 import {initialState} from "./movies.state";
 import {logoutSuccessAction} from "../../auth/state/auth.actions";
 
@@ -15,6 +15,17 @@ const _moviesReducer = createReducer(
     return {
       ...state,
       movies: null
+    }
+  }),
+  on(loadFavouritesSuccessAction, (state, action) => {
+    return {
+      ...state,
+      favourites: action.favourites
+    }
+  }),
+  on(addToFavouritesSuccessAction, (state, action) => {
+    return {
+      ...state
     }
   })
 );

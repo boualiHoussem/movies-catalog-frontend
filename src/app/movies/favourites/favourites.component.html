@@ -1,3 +1,14 @@
-<p>
-  favourites works!
-</p>
+<div class="container">
+  <div class="row">
+    <h3>{{favouriteList.name}}</h3>
+    <hr/>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let holder of favouriteMoviesHolder">
+      <app-movie-card style="display: contents"
+                      [holder]="holder"
+                      [showActionButtons]="false">
+      </app-movie-card>
+    </ng-container>
+  </div>
+</div>

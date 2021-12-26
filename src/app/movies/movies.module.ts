@@ -9,6 +9,7 @@ import {CommonModule} from "@angular/common";
 import {EffectsModule} from "@ngrx/effects";
 import {MoviesEffects} from "./state/movies.effects";
 import {MOVIES_STATE_NAME} from "./state/movies.state";
+import { MovieCardComponent } from './movie-card/movie-card.component';
 
 const routes: Routes = [
   {
@@ -29,7 +30,8 @@ const routes: Routes = [
   declarations: [
     MoviesListComponent,
     FavouritesComponent,
-    WishlistComponent
+    WishlistComponent,
+    MovieCardComponent
   ],
   imports: [
     CommonModule,
